@@ -3,7 +3,7 @@
 **Aluna**: Nahomi Lexamar Ribas Rodriguez
 
 ## 2. Script SQL Prático
-`-- CRIANDO TABELAS
+```-- CRIANDO TABELAS
 
 CREATE TEABLE categorias(
 id_categoria SERIAL PRIMARY KEY,
@@ -61,4 +61,5 @@ SELECT * FROM produtos ORDER BY id_produto DESC;
 -- quando executar o INNER JOIN, visualizando os produtos e suas respectivas categorias.
 SELECT p.nome_produto, c.nome_categoria 
 FROM produtos p 
-INNER JOIN categorias c ON p.id_categoria = c.id_categoria;`
+INNER JOIN categorias c ON p.id_categoria = c.id_categoria;
+```
