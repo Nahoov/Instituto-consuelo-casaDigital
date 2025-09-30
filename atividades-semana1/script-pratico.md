@@ -3,7 +3,8 @@
 **Aluna**: Nahomi Lexamar Ribas Rodriguez
 
 ## 2. Script SQL Prático
-```-- CRIANDO TABELAS
+```
+-- CRIANDO TABELAS
 
 CREATE TEABLE categorias(
 id_categoria SERIAL PRIMARY KEY,
