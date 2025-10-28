@@ -102,4 +102,4 @@ CREATE TABLE telefone_cliente(
 
 -- qual produto é mais vendido
 
--- ver valor ganho nas vendas de um mês específico.
+-- ver valor ganho nas vendas de um mês específico
