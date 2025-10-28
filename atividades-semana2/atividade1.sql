@@ -42,7 +42,7 @@ CREATE TABLE produto(
     produtoID SERIAL PRIMARY KEY,
     nome_produto VARCHAR(100) NOT NULL,
     preco_produto DECIMAL(10,2) NOT NULL,
-    quantidade INT NOT NULL,
+    estoque INT NOT NULL,
     categoriaID INT,
     FOREIGN KEY(categoriaID) REFERENCES categoria(categoriaID)
 
@@ -50,7 +50,7 @@ CREATE TABLE produto(
 
 CREATE TABLE vendedor(
     vendedorID SERIAL PRIMARY KEY,
-    nome_vendedor VARCHAR(40)
+    nome_vendedor VARCHAR(40),
     comissao_vendedor DECIMAL(5,2) NOT NULL,
     email_vendedor VARCHAR(100) UNIQUE NOT NULL,
     cidade_vendedor VARCHAR(60) NOT NULL,
@@ -72,8 +72,8 @@ CREATE TABLE item_pedido(
     item_pedidoID SERIAL PRIMARY KEY,
     pedidoID INT,
     produtoID INT,
-    quantidade INT NOT NULL,
-    preco_unitario DECIMAL (5,2) NOT NULL,
+    quantidade_escolhida INT NOT NULL,
+    preco_unitario DECIMAL (10,2) NOT NULL,
     FOREIGN KEY(pedidoID) REFERENCES pedido(pedidoID),
     FOREIGN KEY(produtoID) REFERENCES produto(produtoID)
 
@@ -92,14 +92,69 @@ CREATE TABLE telefone_cliente(
 
 -- r e s p o s t a 2: desnormalização para relatórios----------------------------------------------
 
--- Para visualizar nome do cliente, pedido e produto
+-- Para visualizar nome do cliente, pedido, produto e valor total
+CREATE VIEW pedido_completo AS
+SELECT 
+    c.nome_cliente,
+    p.pedidoid,
+    prdt.nome_produto AS produto,
+    SUM(ip.quantidade_escolhida) AS quantidade_vendida,
+	SUM(ip.preco_unitario * ip.quantidade_escolhida) AS valor_total
+FROM item_pedido ip
+JOIN pedido p ON ip.pedidoID = p.pedidoID
+JOIN cliente c ON p.clienteID = c.clienteID
+JOIN produto prdt ON ip.produtoID = prdt.produtoID
+GROUP BY c.nome_cliente,
+         p.pedidoID,
+         prdt.nome_produto;
 
--- visualizar estoque de cada producto
 
--- visualizar qual vendedor fez qual venda
+
+-- visualizar estoque de cada produto
+SELECT nome_produto, estoque FROM produto;
+
+
+
+-- visualizar qual vendedor vendeu qual pedido
+SELECT
+    p.pedidoid,
+    v.nome_vendedor,
+    v.email_vendedor
+FROM pedido p
+JOIN vendedor v ON p.vendedorID = v.vendedorID
+
+
+-- visualizar qual vendedor vendeu mais pedidos
+CREATE VIEW ver_maior_vendedor AS
+SELECT
+    v.nome_vendedor,
+    COUNT(p.pedidoID) AS total_vendas
+FROM pedido p
+JOIN vendedor v ON p.vendedorID = v.vendedorID
+GROUP BY v.nome_vendedor
+ORDER BY total_vendas DESC
+LIMIT 3;
+
 
 -- visualizar nome da categoria dos produtos
+CREATE VIEW produtos_categorias AS
+SELECT 
+    p.nome_produto,
+    c.nome_categoria
+FROM produto p
+JOIN categoria c ON p.categoriaID = c.categoriaID
+
 
 -- qual produto é mais vendido
+CREATE VIEW produto_mais_vendido AS
+SELECT 
+    p.nome_produto,
+    SUM(ip.quantidade_escolhida) AS quantidade_vendida
+FROM produto p
+JOIN item_pedido ip ON ip.produtoID = p.produtoID
+GROUP BY nome_produto 
+ORDER BY quantidade_vendida DESC
+LIMIT 3;
+
 
 -- ver valor ganho nas vendas de um mês específico.
