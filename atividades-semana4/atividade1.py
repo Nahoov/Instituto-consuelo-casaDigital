@@ -1,0 +1,1 @@
+#Crie um módulo conversor.py com funções para converter temperaturas entre Celsius, Fahrenheit e Kelvin.
