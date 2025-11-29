@@ -83,7 +83,7 @@ def criar_relatorio_json(path, formato_json):
         json.dump(formato_json, file, indent=4)
         print("JSON criado com sucesso!")
 
-# ========== CRIANDO A FUNÇÃO
+# ========== CRIANDO O ARQUIVO
 
 criar_relatorio_json(path, mood_json)
 
