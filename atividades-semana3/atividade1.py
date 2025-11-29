@@ -29,8 +29,8 @@ try:
 			if len(palavra) > 5:
 				palavras_maiores.append(palavra)
 
-		dicionario ={"Total de palavras": int(len(palavras)),
-				    "Palavras maiores que 5 letras": int(len(palavras_maiores))
+		dicionario ={"Total de palavras": len(palavras),
+				    "Palavras maiores que 5 letras": len(palavras_maiores)
 				    }
 	
 

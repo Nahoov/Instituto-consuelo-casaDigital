@@ -12,6 +12,7 @@ Importar lista de livros de um CSV
 Use tratamento de exceções adequado
 Implemente log de operações em arquivo de texto
 """
+
 class Usuario:
     def __init__(self, nome):
         self.nome = nome
