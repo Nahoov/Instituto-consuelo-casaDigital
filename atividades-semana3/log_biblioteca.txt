@@ -1,0 +1,3 @@
+[30-11-2025 22:33:06] Livro cadastrado: lola
+[30-11-2025 22:33:19] Usuário 'nahomi' cadastrado no sistema
+[30-11-2025 22:33:43] Empréstimo: Livro 'lola' emprestado para nahomi.
