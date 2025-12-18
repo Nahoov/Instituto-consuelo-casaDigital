@@ -1,2 +1,2 @@
 # Instituto-consuelo-casaDigital
-Exercícios realizados durante o curso.
+Repsitório de Estudos - Exercícios realizados durante o curso.
